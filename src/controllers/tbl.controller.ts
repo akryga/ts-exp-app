@@ -1,5 +1,9 @@
+import { PrismaClient, Prisma } from "@prisma/client";
 import { Request, Response } from "express";
-export default class MyController {
+
+const prisma = new PrismaClient();
+export class TblController {
+  
   async create(req: Request, res: Response) {
     try {
       res.status(201).json({
@@ -14,10 +18,10 @@ export default class MyController {
   }
 async findAll(req: Request, res: Response) {
     try {
-      res.status(200).json({
-        message: "my findAll OK"
-      });
+      const data = await prisma.user.findMany();
+      res.status(200).json(data);
     } catch (err) {
+      console.error(err)
       res.status(500).json({
         message: "Internal Server Error!"
       });
@@ -26,7 +30,7 @@ async findAll(req: Request, res: Response) {
 async findOne(req: Request, res: Response) {
     try {
       res.status(200).json({
-        message: "my findOne OK",
+        message: "my findOne OK! Table name:",
         reqParamId: req.params.id
       });
     } catch (err) {

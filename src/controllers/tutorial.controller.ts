@@ -13,6 +13,7 @@ export class TutorialController {
     }
   }
 async findAll(req: Request, res: Response) {
+    
     try {
       res.status(200).json({
         message: "findAll OK"
